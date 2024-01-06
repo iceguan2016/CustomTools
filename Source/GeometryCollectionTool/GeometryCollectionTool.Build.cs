@@ -7,6 +7,8 @@ public class GeometryCollectionTool : ModuleRules
 	public GeometryCollectionTool(ReadOnlyTargetRules Target) : base(Target)
 	{	
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+
+		OptimizeCode = CodeOptimization.Never;
 		
 		PublicIncludePaths.AddRange(
 			new string[] {

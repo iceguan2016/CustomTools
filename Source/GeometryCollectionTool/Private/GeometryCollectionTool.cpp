@@ -75,7 +75,7 @@ void SaveGeometryCollectionToJson(FGeometryCollection* Geometry, bool bUseMeter=
 		auto Visible = Geometry->FindAttribute<bool>("Visible", FGeometryCollection::FacesGroup);
 
 		// Geometry Group
-		auto IndicTransformIndexes = Geometry->FindAttribute<FIntVector>("TransformIndex", FGeometryCollection::GeometryGroup);
+		auto TransformIndex = Geometry->FindAttribute<FIntVector>("TransformIndex", FGeometryCollection::GeometryGroup);
 		auto BoundingBox = Geometry->FindAttribute<FBox>("BoundingBox", FGeometryCollection::GeometryGroup);
 		auto VertexStart = Geometry->FindAttribute<int32>("VertexStart", FGeometryCollection::GeometryGroup);
 		auto VertexCount = Geometry->FindAttribute<int32>("VertexCount", FGeometryCollection::GeometryGroup);
@@ -228,6 +228,16 @@ void SaveGeometryCollectionToJson(FGeometryCollection* Geometry, bool bUseMeter=
 			GeometryObject->SetArrayField("Vertex", JsonVertexArray);
 		}
 
+		// Indices
+		{
+			TArray< TSharedPtr< FJsonValue > > JsonIndicesArray;
+			for (const auto& O : *Indices)
+			{
+				JsonIndicesArray.Add(Internal::CreateJsonValue(O));
+			}
+			GeometryObject->SetArrayField("Indices", JsonIndicesArray);
+		}
+
 		// Bone map
 		{
 			TArray< TSharedPtr< FJsonValue > > JsonBoneMapArray;
@@ -238,14 +248,16 @@ void SaveGeometryCollectionToJson(FGeometryCollection* Geometry, bool bUseMeter=
 			GeometryObject->SetArrayField("BoneMap", JsonBoneMapArray);
 		}
 
-		// Indices
+		// Geometry Group -----------------------------------------------------------
+
+		// Transform index
 		{
-			TArray< TSharedPtr< FJsonValue > > JsonIndicesArray;
-			for (const auto& O : *Indices)
+			TArray< TSharedPtr< FJsonValue > > JsonTransformIndexArray;
+			for (const auto& O : *TransformIndex)
 			{
-				JsonIndicesArray.Add(Internal::CreateJsonValue(O));
+				JsonTransformIndexArray.Add(MakeShared<FJsonValueNumber>(O));
 			}
-			GeometryObject->SetArrayField("Indices", JsonIndicesArray);
+			GeometryObject->SetArrayField("TransfromIndex", JsonTransformIndexArray);
 		}
 
 		// Face start
