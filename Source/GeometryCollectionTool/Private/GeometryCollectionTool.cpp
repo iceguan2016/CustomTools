@@ -257,7 +257,7 @@ void SaveGeometryCollectionToJson(FGeometryCollection* Geometry, bool bUseMeter=
 			{
 				JsonTransformIndexArray.Add(MakeShared<FJsonValueNumber>(O));
 			}
-			GeometryObject->SetArrayField("TransfromIndex", JsonTransformIndexArray);
+			GeometryObject->SetArrayField("TransformIndex", JsonTransformIndexArray);
 		}
 
 		// Face start
