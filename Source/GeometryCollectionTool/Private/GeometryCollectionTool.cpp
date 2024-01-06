@@ -75,7 +75,7 @@ void SaveGeometryCollectionToJson(FGeometryCollection* Geometry, bool bUseMeter=
 		auto Visible = Geometry->FindAttribute<bool>("Visible", FGeometryCollection::FacesGroup);
 
 		// Geometry Group
-		auto TransformIndex = Geometry->FindAttribute<FIntVector>("TransformIndex", FGeometryCollection::GeometryGroup);
+		auto TransformIndex = Geometry->FindAttribute<int32>("TransformIndex", FGeometryCollection::GeometryGroup);
 		auto BoundingBox = Geometry->FindAttribute<FBox>("BoundingBox", FGeometryCollection::GeometryGroup);
 		auto VertexStart = Geometry->FindAttribute<int32>("VertexStart", FGeometryCollection::GeometryGroup);
 		auto VertexCount = Geometry->FindAttribute<int32>("VertexCount", FGeometryCollection::GeometryGroup);
